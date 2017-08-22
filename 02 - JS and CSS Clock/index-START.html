@@ -68,11 +68,37 @@
       transition-timing-function: cubic-bezier(0,.96,.99,.25);
     }
 
+    .second-hand {
+      height: 4px;
+      background: pink;
+    }
+
+    .hour-hand {
+      width: 25%;
+      left: 25%;
+
+    }
+
   </style>
 
+
   <script>
-
-
+    const sec = document.querySelector('.second-hand');
+    const min = document.querySelector('.min-hand');
+    const hour = document.querySelector('.hour-hand');
+    const calcDegs = (curTime, max) => ((curTime/max) * 360) + 90;
+    const updateHands = () => {
+      const now = new Date();
+      const hourNow = now.getHours();
+      const secDeg = calcDegs(now.getSeconds(), 60);
+      const minDeg = calcDegs(now.getMinutes(), 60);
+      const hourDeg = calcDegs(hourNow, 12);
+      sec.style.transform = `rotate(${secDeg}deg)`;
+      min.style.transform = `rotate(${minDeg}deg)`;
+      hour.style.transform = `rotate(${hourDeg}deg)`;
+    };
+    setInterval(updateHands, 1000);
+    updateHands();
   </script>
 </body>
 </html>
